@@ -15,3 +15,8 @@ export const schema = z.object({
 });
 
 export type FormData = z.infer<typeof schema>;
+
+export type StepType = {
+    label: string;
+    component: React.ReactNode;
+};

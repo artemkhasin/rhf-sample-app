@@ -1,10 +1,13 @@
 import React from 'react';
 import { useForm, SubmitHandler, FormProvider } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { Button, Stack, Step, StepLabel, Stepper } from '@mui/material';
-import { schema, FormData } from '../types/schema';
+import { Stack } from '@mui/material';
+import { schema, FormData, StepType } from '../types/schema';
 import AdditionalInfo from './AdditionalInfo';
 import MainInfo from './MainInfo';
+import CustomStepper from './CustomStepper';
+import FormButtons from './FormButtons';
+import { DevTool } from "@hookform/devtools";
 
 function MyForm() {
   const methods = useForm<FormData>({
@@ -13,7 +16,16 @@ function MyForm() {
 
   const { handleSubmit } = methods;
 
-  const steps = ['Main Info', 'Additional Info'];
+  const steps: StepType[] = [
+    { 
+        label: 'Main Info',
+        component: <MainInfo/>,
+     }, 
+    { 
+        label: 'Additional Info',
+        component: <AdditionalInfo/>,
+     }
+];
   const [activeStep, setActiveStep] = React.useState(1);
 
   const onSubmit: SubmitHandler<FormData> = (data) => {
@@ -24,43 +36,29 @@ function MyForm() {
     if (activeStep < steps.length) {
       setActiveStep((prev) => prev + 1);
     }
-    if (activeStep === steps.length - 1) {
+    if (activeStep === steps.length) {
         return handleSubmit(onSubmit)();
     }
   };
 
+  const activeComponent = steps[activeStep - 1].component;
+  console.log(process.env.NODE_ENV)
   return (
         <FormProvider {...methods}>
             <Stack spacing={3} width={300} margin='auto' marginTop={5} direction='column'>
-                <Stepper activeStep={activeStep} alternativeLabel>
-                    {steps.map((label) => (
-                        <Step key={label}>
-                            <StepLabel>{label}</StepLabel>
-                        </Step>
-                    ))}
-                </Stepper>
-                {activeStep === 1 && <MainInfo />}
-                {activeStep === 2 && <AdditionalInfo />}
-                <Stack spacing={2} direction='row' justifyContent='center'>
-                    {
-                        activeStep !== 1 && 
-                        <Button 
-                            variant='outlined' 
-                            onClick={()=> setActiveStep(prev => prev - 1)}
-                            fullWidth
-                        >
-                            Back
-                        </Button>}
-                    <Button 
-                        type="submit" 
-                        variant='contained' 
-                        onClick={handleClicked}
-                        fullWidth
-                    >
-                        {activeStep === steps.length ? 'Submit' : 'Next'}
-                    </Button>
-                </Stack>
+                <CustomStepper activeStep={activeStep} steps={steps} />
+                {activeComponent}
+                <FormButtons
+                    activeStep={activeStep}
+                    handleClicked={handleClicked}
+                    setActiveStep={setActiveStep}
+                    steps={steps}
+                />
             </Stack>
+            {
+                process.env.NODE_ENV === 'development' && 
+                <DevTool control={methods.control} />
+            }
         </FormProvider>
   );
 }

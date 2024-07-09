@@ -4,7 +4,7 @@ import ControlledInput from './ControlledInput';
 import { useFormContext } from 'react-hook-form';
 import { FormData } from '../types/schema';
 
-const MainInfo = () => {
+const MainInfo: React.FC = () => {
     const { control, formState: { errors } } = useFormContext<FormData>();
 
   return (

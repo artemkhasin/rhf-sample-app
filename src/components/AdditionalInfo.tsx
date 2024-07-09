@@ -4,7 +4,7 @@ import { useFormContext } from 'react-hook-form';
 import { schema, FormData } from '../types/schema';
 import ControlledInput from './ControlledInput';
 
-const AdditionalInfo = () => {
+const AdditionalInfo: React.FC = () => {
   const { control, formState: {errors} } = useFormContext<FormData>();
 
   const additionalFields = Object.keys(schema.shape.details.shape) as Array<keyof typeof schema.shape.details.shape>;
