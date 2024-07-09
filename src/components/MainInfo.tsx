@@ -1,5 +1,5 @@
 import React from 'react';
-import { Stack, Typography } from '@mui/material';
+import { Stack } from '@mui/material';
 import ControlledInput from './ControlledInput';
 import { useFormContext } from 'react-hook-form';
 import { FormData } from '../types/schema';
@@ -9,7 +9,6 @@ const MainInfo: React.FC = () => {
 
   return (
     <Stack spacing={3}>
-        <Typography variant='h6'>Main Info</Typography>
         <ControlledInput 
             name='firstName' 
             control={control} 

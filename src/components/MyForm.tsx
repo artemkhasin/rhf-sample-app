@@ -42,7 +42,6 @@ function MyForm() {
   };
 
   const activeComponent = steps[activeStep - 1].component;
-  console.log(process.env.NODE_ENV)
   return (
         <FormProvider {...methods}>
             <Stack spacing={3} width={300} margin='auto' marginTop={5} direction='column'>

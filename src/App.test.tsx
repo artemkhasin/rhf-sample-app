@@ -4,6 +4,6 @@ import App from './App';
 
 test('renders learn react link', () => {
   render(<App />);
-  const BTNElement = screen.getByText(/submit/i);
+  const BTNElement = screen.getByText(/next/i);
   expect(BTNElement).toBeInTheDocument();
 });
