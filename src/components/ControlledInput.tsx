@@ -25,7 +25,7 @@ const ControlledInput: React.FC<IOwnProps> = ({
       render={({ field }) => (
         <TextField
           {...field}
-          label={label.replace(/(name)/i, ' $1').toUpperCase()}
+          label={label}
           error={!!error}
           helperText={error || ''}
           variant='outlined'

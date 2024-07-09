@@ -1,49 +1,36 @@
 import React from 'react';
-import { useForm, SubmitHandler } from 'react-hook-form';
+import { useForm, SubmitHandler, FormProvider } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { Button } from '@material-ui/core';
-import ControlledInput from './ControlledInput';
+import { Button, Stack } from '@mui/material';
 import { schema, FormData } from '../types/schema';
+import AdditionalInfo from './AdditionalInfo';
+import MainInfo from './MainInfo';
 
 function MyForm() {
-  const { 
-    control, 
-    handleSubmit, 
-    formState: { errors } 
-} = useForm<FormData>({
+  const methods = useForm<FormData>({
     resolver: zodResolver(schema),
   });
+
+  const { handleSubmit } = methods;
 
 
   const onSubmit: SubmitHandler<FormData> = (data) => {
     console.table(data);
   };
 
-  const schemaFields = Object.keys(schema.shape) as Array<keyof FormData>;
+  const handleClicked = () => {
+    handleSubmit(onSubmit)();
+  };
 
   return (
-    <form 
-        onSubmit={handleSubmit(onSubmit)} 
-        style={{ 
-            display: 'flex', 
-            flexDirection: 'column', 
-            justifyContent: 'space-between', 
-            height: 400, 
-            width: 250, 
-            margin: '50px auto 0'
-        }}>
-        {schemaFields.map((field) => (
-            <ControlledInput
-                key={field}
-                name={field}
-                control={control}
-                defaultValue=""
-                label={field}
-                error={errors[field]?.message}
-            />
-        ))}
-        <Button type="submit" variant='contained'>Submit</Button>
-    </form>
+        <FormProvider {...methods}>
+            <Stack spacing={3} width={300} margin='auto' marginTop={5} direction='column'>
+                <MainInfo />
+                <AdditionalInfo />
+                <Button type="submit" variant='contained' onClick={handleClicked}>Submit</Button>
+            </Stack>
+        </FormProvider>
+
   );
 }
 
