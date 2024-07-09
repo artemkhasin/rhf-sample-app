@@ -38,7 +38,7 @@ function MyForm() {
                 name={field}
                 control={control}
                 defaultValue=""
-                label={field.replace(/(name)/i, ' $1').toUpperCase()}
+                label={field}
                 error={errors[field]?.message}
             />
         ))}
