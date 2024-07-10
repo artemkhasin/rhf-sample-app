@@ -12,6 +12,10 @@ import { DevTool } from "@hookform/devtools";
 function MyForm() {
   const methods = useForm<FormData>({
     resolver: zodResolver(schema),
+    // defaultValues: {
+    //   firstName: 'Alex',
+    //   secondName: 'Smith'
+    // },
   });
 
   const { handleSubmit } = methods;
