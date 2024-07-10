@@ -1,6 +1,7 @@
 import React from 'react';
 import { Button, Stack } from '@mui/material';
 import { StepType } from '../types/schema';
+import { useFormContext } from 'react-hook-form';
 
 interface IOwnProps {
     activeStep: number;
@@ -10,6 +11,8 @@ interface IOwnProps {
 };
 
 const FormButtons = ({activeStep, handleClicked, setActiveStep, steps}: IOwnProps) => {
+    const { formState: { errors } } = useFormContext();
+    const isErrors = Object.keys(errors).length > 0;
   return (
     <Stack spacing={2} direction='row' justifyContent='center'>
         {
@@ -24,6 +27,7 @@ const FormButtons = ({activeStep, handleClicked, setActiveStep, steps}: IOwnProp
         <Button 
             type="submit" 
             variant='contained' 
+            color={isErrors ? 'error' : 'primary'}
             onClick={handleClicked}
             fullWidth
         >

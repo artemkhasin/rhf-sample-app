@@ -5,7 +5,7 @@ import TextField from '@material-ui/core/TextField';
 interface IOwnProps {
   name: string;
   control: Control<any>;
-  defaultValue: string;
+  defaultValue?: string;
   label: string;
   error?: string;
 }
@@ -15,7 +15,7 @@ const ControlledInput: React.FC<IOwnProps> = ({
     control, 
     defaultValue, 
     label, 
-    error 
+    error
 }) => {
   return (
     <Controller

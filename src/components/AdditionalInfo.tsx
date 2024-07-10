@@ -15,7 +15,6 @@ const AdditionalInfo: React.FC = () => {
           key={field}
           name={`details.${field}`}
           control={control}
-          defaultValue=''
           label={field.toUpperCase()}
           error={errors.details?.[field]?.message}
         />

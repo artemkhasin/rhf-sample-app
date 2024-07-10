@@ -11,29 +11,25 @@ const MainInfo: React.FC = () => {
     <Stack spacing={3}>
         <ControlledInput 
             name='firstName' 
-            control={control} 
-            defaultValue='' 
+            control={control}
             label='First Name' 
             error={errors.firstName?.message}
         />
         <ControlledInput 
             name='secondName' 
-            control={control} 
-            defaultValue='' 
+            control={control}
             label='Second Name' 
             error={errors.secondName?.message}
         />
         <ControlledInput 
             name='email' 
-            control={control} 
-            defaultValue='' 
+            control={control}
             label='Email' 
             error={errors.email?.message}
         />
         <ControlledInput 
             name='phone' 
-            control={control} 
-            defaultValue='' 
+            control={control}
             label='Phone' 
             error={errors.phone?.message}
         />
