@@ -8,6 +8,12 @@ type Results = {
   subtraction: number;
 };
 
+const validateNumber = (num: number | null, min: number, max: number): string => {
+  if (num === null) return "Please enter valid numbers";
+  if (num < min || num > max) return `Number must be between ${min} and ${max}`;
+  return "";
+};
+
 const Calculator: React.FC = () => {
   const [num1, setNum1] = useState<number | null>(null);
   const [num2, setNum2] = useState<number | null>(null);
@@ -15,23 +21,23 @@ const Calculator: React.FC = () => {
   const [error, setError] = useState<string>("");
 
   const handleCalculate = () => {
-    if (num1 === null || num2 === null) {
-      setError("Please enter valid numbers");
-      return;
-    }
+    const error1 = validateNumber(num1, 1, 50);
+    const error2 = validateNumber(num2, 25, 500);
 
-    if (num1 < 1 || num1 > 50) {
-      setError("First number must be between 1 and 50");
-      return;
-    }
-
-    if (num2 < 25 || num2 > 500) {
-      setError("Second number must be between 25 and 500");
+    if (error1 || error2) {
+      setError(error1 || error2);
       return;
     }
 
     setError("");
-    setResults(calculateOperations(num1, num2));
+    setResults(calculateOperations(num1!, num2!));
+  };
+
+  const handleReset = () => {
+    setNum1(null);
+    setNum2(null);
+    setResults(null);
+    setError("");
   };
 
   const inputStyle = {
@@ -68,6 +74,7 @@ const Calculator: React.FC = () => {
         </label>
       </div>
       <button onClick={handleCalculate}>Calculate</button>
+      <button onClick={handleReset}>Reset</button>
 
       {error && <p style={{ color: "red" }}>{error}</p>}
 
